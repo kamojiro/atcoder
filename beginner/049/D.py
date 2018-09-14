@@ -1,10 +1,11 @@
-from collections import Counter
+from collections import defaultdict
 def find(x, A):
     p = A[x]
     if p == x:
         return x
     a = find(p, A)
     A[x] = a
+    find(a,A)
     return a
 
 N, K, L = map( int, input().split())
@@ -24,15 +25,12 @@ for _ in range(L):
     W[s] = br
     W[bs] = br
 
+d = defaultdict(int)
 for i in range(N):
-    find(V[i], V)
-    find(W[i], W)
-ans = 0
-VW = [ (V[i], W[i]) for i in range(N)]
-CVW = Counter(VW)
+    d[(find(i,V), find(i, W))] += 1
 ANS = [0]*N
 for i in range(N):
-    ANS[i] = CVW[(V[i],W[i])]
+    ANS[i] = d[(find(i,V), find(i, W))]
 
 print(' '.join( map( str, ANS)))
     
