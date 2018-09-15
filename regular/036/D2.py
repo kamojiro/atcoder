@@ -30,7 +30,7 @@ for _ in range(Q):
         p, q = colors[find(x,W)], colors[find(y,W)]
         if z%2 == 0:
             if p == 2 or q == 2:
-                colors[find[x,W]] = colors[find(y,W)] = 0
+                colors[find(x,W)] = colors[find(y,W)] = 0
             elif p == -1 and q == -1:
                 colors[x] = colors[y] = 0
             elif p == -1:
@@ -46,9 +46,11 @@ for _ in range(Q):
             Wnei[find(y,W)] = Wnei[find(x,W)]
         else:
             if p == 2 or q == 2:
-                colors[find[x,W]] = colors[find(y,W)] = 0
+                colors[find(x,W)] = colors[find(y,W)] = 0
             elif p == -1 and q == -1:
                 colors[x], colors[y] = 0, 1
+                Wnei[x] = y
+                Wnei[y] = x
             elif p == -1:
                 colors[x] = (q+1)%2
                 Wnei[x] = find(y,W)
@@ -56,24 +58,23 @@ for _ in range(Q):
                 if Wnei[find(y,W)] == -1:
                     Wnei[find(y,W)] = x
                 else:
-                    union(Wnei[find(y,W)], x)
+                    union(Wnei[find(y,W)], x, W)
                     Wnei[find(x,W)] = find(y,W)
                     Wnei[find(y,W)] = find(x,W)
             elif q == -1:
                 colors[y] = (p+1)%2
-                Wnei[y] = find(x,W)
                 union(Wnei[find(x,W)], y, W)
+                Wnei[find(y,W)] = find(x,W)
                 if Wnei[find(x,W)] == -1:
                     Wnei[find(x,W)] = y
                 else:
-                    union(Wnei[find(x,W)], y)
+                    union(Wnei[find(x,W)], y,W)
                     Wnei[find(x,W)] = find(y,W)
                     Wnei[find(y,W)] = find(x,W)
             elif p != q:
-                union(Wnei[find(x,W)], find(y,W),W)
-                union(Wnei[find(y,W)], find(x,W),W)
+                
             else:
-                colors[find[p,W]] = colors[find(q,W)] = 2
+                colors[find(p,W)] = colors[find(q,W)] = 2
         print(V)
         print(W)
         print(Wnei)
