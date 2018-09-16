@@ -1,4 +1,3 @@
-#from collections import deque
 from collections import defaultdict
 N, M = map( int, input().split())
 S = list( input())
@@ -33,7 +32,6 @@ for i in range(M):
     else:
         A[a] += 1
 T = set([])
-L = []
 
 for i in range(N):
     if A[i] == 0 or B[i] == 0:
@@ -41,9 +39,9 @@ for i in range(N):
 while T:
     n = T.pop()
     V[n] = 0
-    for m in Edges[n]:
+    for m in set(Edges[n]):
         if V[m] == 1:
-            if S[m] == 'A':
+            if S[n] == 'A':
                 A[m] -= 1
                 if A[m] == 0:
                     T.add(m)
@@ -51,6 +49,7 @@ while T:
                 B[m] -= 1
                 if B[m] == 0:
                     T.add(m)
+                
 if sum(V) == 0:
     print('No')
 else:
