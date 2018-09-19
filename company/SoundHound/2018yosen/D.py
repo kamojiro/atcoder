@@ -9,17 +9,16 @@ def dijkstra(G,D,x,n):
     V = [ 0 for _ in range(n)] #Vはその頂点が確定しているかどうか、確定なら1
     X = [ 10**14 for _ in range(n)] #不確定な経路
     W = [ 0 for _ in range(n)] #Wは最短経路
-    H = [(x,0)]
+    H = [(0,x)]
     heapq.heapify(H)
     while H:
-        p, d = heapq.heappop(H)
+        d, p = heapq.heappop(H)
         W[p] = d
         V[p] = 1
         for y in G[p]:
-            if V[p] == 0:
-                print('hoge')
+            if V[y] == 0:
                 X[y] = min( X[y], d+D[(y,p)])
-                heapq.heappush(H, min(X[y], d + D[(y,p)]))
+                heapq.heappush(H, (min(X[y], d + D[(y,p)]),y))
     return W                
 
 n, m, s, t = map( int, input().split())
@@ -36,7 +35,6 @@ for _ in range(m):
     D_snuke[(u,v)] = D_snuke[(v,u)] = b
 C_yen = dijkstra(G,D_yen,s,n)
 C_snuke = dijkstra(G,D_snuke,t,n)
-print(G)
 ans = 10**14
 ANS = [ 0 for _ in range(n)]
 for i in range(n):
