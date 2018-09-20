@@ -4,14 +4,16 @@ from itertools import accumulate
 n, m, s, t = map( int, input().split())
 
 def dijkstra(graph, start):
-    dist = [ 10**14 for _ in range(n)]
+    #graph = [ dict() for _ in range(n)]
+    dist = [ 10**14 for _ in range(n)] #nは頂点数
     dist[start] = 0
     q = [(0,start)]
     while q:
         l, v = heapq.heappop(q)
-        if dist[v] < l:
+        if dist[v] < l: #最小でない距離もheapに含まれている
             continue
-        for u, d in graph[v].items():
+        for u, d in graph[v].items(): #.items()はdictを表示する
+            #ここでgraphのとり方が聞いてくる            
             if dist[u] > l+d:
                 dist[u] = l+d
                 heapq.heappush(q, (dist[u], u))
