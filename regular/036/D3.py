@@ -7,7 +7,11 @@ def find(A,x):
     return a
  
 def union(A, x, y):
-    bx, by = find(A,x), find(A,y)
+#    bx, by = sorted([find(A,x), find(A,y)]) # bx, by = find(A,x), find(A,y)だと無限ループ。
+    if find(A,x) > find(A,y):
+        bx, by = find(A,y), find(A,x)
+    else:
+        bx, by = find(A,x), find(A,y)
     A[y] = bx
     A[by] = bx
 
@@ -28,4 +32,3 @@ for _ in range(Q):
             print('YES')
         else:
             print('NO')
-            
