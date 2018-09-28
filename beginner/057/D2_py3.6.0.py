@@ -11,23 +11,20 @@ def combination(a,b):
 
 N, A, B = map( int, input().split())
 V = list( map( int, input().split()))
-V.sort(reverse = True)
+V.sort( reverse = True)
 print( sum(V[:A])/A)
-S = list( set(V))
-S.sort(reverse = True)
 CV = Counter(V)
 ans = 0
-K = CV[S[0]]
+K = CV[ max(V)]
 if A <= K:
     for i in range(A, min(K, B)+1):
         ans += combination(K, i)
 else:
     cnt = A
-    for x in S:
+    for x in CV:
         if cnt <= CV[x]:
             ans += combination(CV[x],cnt)
             break
         else:
             cnt -= CV[x]
 print(ans)
-
