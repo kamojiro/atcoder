@@ -1,20 +1,77 @@
-Q = int( input())
-def matching(A,B):
-    #最大となる組み合わせは、1,2,...,xと1,2,...,xという頂点を逆順で組み合わせることで得られることが分かる
-    #このとき、これらの積の最大値は(x+1)//2*(x+1-(x+1)//2)である
-    #ここで、B = A + nであるとき、最大はA*(A+(n-1))以上になることが分かる。
-    #n >= 1であれば、積の最大値はA.Bを飛ばしても実現されることが分かる。
-    if A == B:
-        return 2*A - 2
-    S = A*B
-    L, H = 0, A*B
-    while H - L != 1:
-        M = (L+H)//2
-        if ((M+1)//2)*(M + 1 - (M+1)//2) < S:
-            L = M
+N = int( input())
+s = list( input())
+I = ['S', 'W']
+Flag = False
+for x in I:
+    for y in I:
+        ANS = ['']*N
+        ANS[0] = x
+        ANS[-1] = y
+        for i in range(N-2):
+            if ANS[i] == 'S':
+                if s[i] == 'o':
+                    ANS[i+1] = ANS[i-1]
+                else:
+                    if ANS[i-1] == 'S':
+                        ANS[i+1] = 'W'
+                    else:
+                        ANS[i+1] = 'S'
+            else:
+                if s[i] == 'x':
+                    ANS[i+1] = ANS[i-1]
+                else:
+                    if ANS[i-1] == 'S':
+                        ANS[i+1] = 'W'
+                    else:
+                        ANS[i+1] = 'S'
+        if ANS[-2] == 'S':
+            if s[-2] == 'o':
+                if ANS[-3] == ANS[-1]:
+                    pass
+                else:
+                    continue
+            else:
+                if ANS[-3] == ANS[-1]:
+                    continue
+                else:
+                    pass
         else:
-            H = M
-    return L-1 #L-1なのは、A,Bを飛ばすため
-for _ in range(Q):
-    A, B = map( int, input().split())
-    print( matching(A,B))
+            if s[-2] == 'o':
+                if ANS[-3] != ANS[-1]:
+                    pass
+                else:
+                    continue
+            else:
+                if ANS[-3] != ANS[-1]:
+                    continue
+                else:
+                    pass
+        if ANS[-1] == 'S':
+            if s[-1] == 'o':
+                if ANS[-2] == ANS[0]:
+                    pass
+                else:
+                    continue
+            else:
+                if ANS[-2] == ANS[0]:
+                    continue
+                else:
+                    pass
+        else:
+            if s[-1] == 'o':
+                if ANS[-2] != ANS[0]:
+                    pass
+                else:
+                    continue
+            else:
+                if ANS[-2] != ANS[0]:
+                    continue
+                else:
+                    pass
+        print(''.join(ANS))
+        Flag = True
+        break
+    if Flag:
+        break
+if Flag == False:
+    print(-1)
