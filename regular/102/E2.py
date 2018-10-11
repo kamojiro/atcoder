@@ -11,18 +11,23 @@ def getInv(N):
 K, N = map( int, input().split())
 Q = 998244353
 fuct, invs = getInv(N+K)
-c = fuct[N+K-1]*invs[N]*invs[K-1]%Q
-for i in range(2,2*K+1):
+L = K-1
+for t in range(2, 2*K+1):
     ans = 0
-    if i%2 == 1:
-        for j in range(1, i//2+1):
-            ans += pow(2,j-1,Q)*fuct[N+K-2-j]*invs[K-j]*invs[N-2]
+    if t%2 == 1:
+        p = t//2
+        for q in range(p+1):
+            if q <= N:
+                continue
+            ans += (fuct[p]*invs[q]*invs[p-q]%Q)*(fuct[N+K-p-q]*invs[N-q]*invs[K-p-1]%Q)
             ans %= Q
     else:
-        for j in range(1, i//2):
-            ans += pow(2,j-1,Q)*fuct[N+K-2-j]*invs[K-j]*invs[N-2]
+        p = t//2-1
+        for q in range(p+1):
+            if q == L:
+                continue
+            ans += (fuct[p]*invs[q]*invs[p-q]%Q)*(fuct[N+L-p-q]*invs[N-q]*invs[L-p-1]%Q)
             ans %= Q
-        k = i//2
-        ans += pow(2,k-1,Q)*fuct[N+K-k-2]*invs[K-k]
+        ans += fuct[N+K-3]*invs[N-1]*invs[K-2]
         ans %= Q
-    print((c-ans)%Q)
+    print(ans)
