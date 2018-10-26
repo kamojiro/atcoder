@@ -1,4 +1,4 @@
-from copy import deepcopy
+#from copy import deepcopy
 H, W, X = map( int, input().split())
 S = [['']*W]*H
 I = []
@@ -15,7 +15,7 @@ for i in range(H):
             S[i][j] = '#'
 
 for i in range(X):
-    II = deepcopy(I)
+    II = I
     I = []
     for x in II:
         a, b = x
@@ -37,7 +37,7 @@ for i in range(X):
 ans = -1
 now = 0
 while U:
-    UU = deepcopy(U)
+    UU = U
     U = []
     now += 1
     for x in UU:
