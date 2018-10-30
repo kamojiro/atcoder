@@ -17,8 +17,8 @@ def invnumber(n, S):# #{(i,j)| i<j and S[i]<=S[j]}
     B = [0]*(n*2 + 1)
     invs = 0
     for i in range(n):
-        s = S[i] + n
-        invs += sums(B, s)
+        s = S[i] + n #BITで扱えるようにするために、nを加算した
+        invs += sums(B, s) #i<j
         add(B, s, n*2)
     return invs
 
