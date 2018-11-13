@@ -1,6 +1,13 @@
+def check(a,b,c,d,V):
+    V[a][b] += 1
+    V[c][d] += 1
+    V[a][d] -= 1
+    V[c][b] -= 1
+
+
 N, K = map( int, input().split())
 L = K*2
-KK = [[0]*L for _ in range(L)]
+KK = [[0]*(L+1) for _ in range(L+1)]
 
 for i in range(N):
     x, y, c = input().split()
@@ -9,17 +16,4 @@ for i in range(N):
         x, y = x%L, y%L
     else:
         x, y = (x+K)%L, (y+K)%L
-    if 0 <= x < K-1:
-        if 0 <=y < K-1:
-            KK[0][0] += 1
-            KK[x][y] += 1
-            KK[0][y] -= 1
-            KK[x][0] -= 1
-            KK[x+K][y+K] += 1
-            KK[L-1][L-1] += 1
-            KK[x+K][L-1] -= 1
-            KK[L-1][y+K] -= 1
-        else:
-            KK[x][y] += 1
-            KK[0][y-K]
-            
+    x_, y_ = x%K, y%K
