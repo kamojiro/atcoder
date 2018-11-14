@@ -50,3 +50,5 @@ if x == nx and y == ny:
     print("Yes")
 else:
     print("No")
+
+#dpっぽい
