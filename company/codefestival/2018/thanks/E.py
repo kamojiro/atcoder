@@ -8,10 +8,3 @@ for i in range(T):
     for j in range(T*2):
         dp[i+1][][0] = 
 
-
-
-
-
-
-
-
