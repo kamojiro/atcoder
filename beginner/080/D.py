@@ -14,4 +14,6 @@ for i in range(1,10*5+1):
         if timetable[c][i] > 0:
             now += 1
     ans = max( now, ans)
+for c in range(1,C+1):
+    print( timetable[c][:40])
 print(ans)
